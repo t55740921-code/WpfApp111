@@ -88,13 +88,12 @@ namespace WpfApp111
         {
 
             {
-                DemoTestEntities db = new DemoTestEntities();
+                DemoTestEntities1 db = new DemoTestEntities1();
                 string login = TbLogin.Text;
                 string password = TbPass.Text;
                 Users user = db.Users.FirstOrDefault(u => u.Login == login && u.Password == password);
                 StaticObject.user = user;
-                if (user.Password.Trim() == TbPass.Text)
-                {
+                if (user.Password.Trim() == TbPass.Text);                {
                     MessageBox.Show("Вы успешно авторизовались");
                     StaticObject.user = user;
                     if (user.RoleID == 1)

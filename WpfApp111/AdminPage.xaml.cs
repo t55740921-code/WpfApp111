@@ -20,7 +20,7 @@ namespace WpfApp111
     /// </summary>
     public partial class AdminPage : Page
     {
-        DemoTestEntities db = new DemoTestEntities();
+        DemoTestEntities1 db = new DemoTestEntities1();
         public AdminPage()
         {
             InitializeComponent();
@@ -53,7 +53,7 @@ namespace WpfApp111
             Users user = DtGrid.SelectedItem as Users;
             if(MessageBox.Show("Удалить?", "Удаление", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                db.Users.Remove(user);
+                Users users = db.Users.Remove(user);
                 db.SaveChanges();
                 StaticObject.dataGrid.ItemsSource = db.Users.ToList();
             }

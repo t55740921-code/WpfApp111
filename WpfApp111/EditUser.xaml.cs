@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,17 +21,20 @@ namespace WpfApp111
     /// </summary>
     public partial class EditUser : Window
     {
-        DemoTestEntities db = new DemoTestEntities();
+        public Users editingUser;
+        DemoTestEntities1 db = new DemoTestEntities1();
         public EditUser(Users user)
         {
             InitializeComponent();
+            editingUser = user;
             this.user = user;
             db.Role.Load();
             cbRoles.ItemsSource = db.Role.Local;
             cbRoles.DisplayMemberPath = "RoleName";
-            cbRoles.SelectedValuePath = "Id";
-            tbLogin.Text = user.Login.Trim();
-            tbPassword.Text = user.Password.Trim();
+            cbRoles.SelectedValuePath = "RoleId";
+            tbLogin.Text = user.Login?.Trim();
+            tbPassword.Text = user.Password?.Trim();
+            
             cbRoles.Text = db.Role.Find(user.RoleID).RoleName;
             ckBan.IsChecked = user.Blocked;
         }
@@ -40,20 +44,17 @@ namespace WpfApp111
 
         private void Button_AddClick(object sender, RoutedEventArgs e)
         {
-            Users updatedUser = db.Users.Find(UserID);
-            EditSelectedUser(updatedUser);
-            db.SaveChanges();
-        }
-        private void EditSelectedUser(Users updatedUser)
-        {
-            updatedUser.Login = tbLogin.Text;
-            updatedUser.Password = tbPassword.Text;
-            updatedUser.RoleID = Convert.ToInt32(cbRoles.SelectedValue);
-            updatedUser.Blocked = ckBan.IsChecked;
-
+            editingUser.Login = tbLogin.Text;
+            editingUser.Password = tbPassword.Text;
+            editingUser.RoleID = Convert.ToInt32(cbRoles.SelectedValue);
+            editingUser.Blocked = ckBan.IsChecked;
             db.SaveChanges();
             StaticObject.dataGrid.ItemsSource = db.Users.ToList();
             this.Close();
         }
-    }
-}
+      
+        }
+           
+        }
+    
+

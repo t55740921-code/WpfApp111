@@ -24,8 +24,7 @@ namespace WpfApp111
             InitializeComponent();
             StaticObject.DesktopFrame = DesktopFrame;
             new Autorization().ShowDialog();
-            DesktopFrame.Navigate(new AdminPage());
-            DesktopFrame.Navigate(new UserPage());
+            
         }
     }
 }

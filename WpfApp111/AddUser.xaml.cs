@@ -20,14 +20,14 @@ namespace WpfApp111
     /// </summary>
     public partial class AddUser : Window
     {
-        DemoTestEntities db = new DemoTestEntities();
+        DemoTestEntities1 db = new DemoTestEntities1();
         public AddUser()
         {
             InitializeComponent();
             db.Role.Load();
             cbRoles.ItemsSource = db.Role.Local;
             cbRoles.DisplayMemberPath = "RoleName";
-            cbRoles.SelectedValuePath = "Id";
+            cbRoles.SelectedValuePath = "RoleId";
         }
 
         private void Button_AddClick(object sender, RoutedEventArgs e)
